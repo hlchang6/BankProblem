@@ -1,0 +1,118 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Oblique;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww26660\viewh16080\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs48 \cf0 This is the readme file for the OSL bank problem.\
+\
+Language/version: Java 17\
+\
+There are in total 4 Java Classes including \
+1. OSL_BankProblem\
+	- where the main function is, and calls functions from classes Bank and Account\
+2. Account\
+	- the functional class which handles most of the operation function including deposit and withdrawal\
+3. Bank\
+	- keeps record of currencies its handling and a record of currencies its clients is using \
+4. Transaction\
+	- object to store each transaction record (e.g. 24 Aug 2022 10:28:42    HKD    Deposit             +20.00)\
+\
+===============================================================================\
+Description of classes, their functions\
+\
+CLASS OSL_BankProblem\
+	- create a scanner to read user inputs\
+	- call bank() (to initialise the default account/supporting currencies)\
+	- prompt user to create a new account (once only for testing)\
+	The following runs in a while(true) / forever loop:\
+		1. ask for username\
+		2. if user exist, ask for action (deposit/withdrawal etc.)\
+			2.1 call Account function repectively\
+		3. else if not existing, ask for username again until name is valid\
+		4. clean scanner and jump to 1. \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 CLASS Account\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 	userName, currency: the username and the currency of an account (the key for identification)\
+	balance: the account\'92s balance, should never be negative\
+	transaction:  every client has a list of their transactions \
+Functions:\
+Account(String name, String curr)\
+- create account object with user input 
+\f1\i username
+\f0\i0  and 
+\f1\i currency
+\f0\i0 \
+moneyDeposit\
+- increase 
+\f1\i balance
+\f0\i0 \
+- record time, create transaction record of operation\
+moneyWithdrawal\
+- calculate the fee, check if 
+\f1\i balance
+\f0\i0  sufficient for fee and withdrawal amount\
+- if yes, reduce 
+\f1\i balance
+\f0\i0 \
+	- record time, create transaction record of operation\
+- if no, do not allow balance change\
+moneyTransfer\
+- check if target account uses same currency\
+- similar to moneyWithdrawal but \
+- at same time deposit to target account\
+- also for target account: record time, create transaction record of operation (transfer IN)\
+listBalance\
+- retrieve record 
+\f1\i clientCurr
+\f0\i0  from bank to see currencies a client is using\
+- show balance for all currencies the client has\
+displayTransaction\
+- format the header \
+- print transaction object stored in 
+\f1\i transaction
+\f0\i0  one by one\
+\
+CLASS Bank\
+	
+\f1\i supportCurrency
+\f0\i0 : arraylist to store HKD,SGD,USD \
+	
+\f1\i clientCurr
+\f0\i0 : hashmap mapping client name to the list of currencies they are using\
+	
+\f1\i curr
+\f0\i0 : \'93the list of currencies they are using\'94\
+Bank()\
+- initialisation including creating 
+\f1\i supportCurrency
+\f0\i0 , and default bank accounts of the 3 currencies\
+\
+CLASS Transaction\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 	LocalDateTime 
+\f1\i date
+\f0\i0 , \
+	String 
+\f1\i currency
+\f0\i0 , \
+	String 
+\f1\i operation
+\f0\i0 , \
+	double 
+\f1\i amount
+\f0\i0 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 override toString for visibility in Account.displayTransaction()\
+\
+\
+\
+\
+\
+\
+\
+\
+}
